@@ -17,11 +17,11 @@ public class InventoryGUI extends JFrame{
 
 	//Image Variables
 	private static BufferedImage carPic = null, suvPic = null, openPic = null, saveAsPic = null, searchPic = null;
-	private static JButton carP, suvP, openP, saveAsP, searchP;
+	private static JButton carP, suvP, openP, saveAsP, searchP, labelP;
 
 	//The Main Window
 	private static JFrame mainWindow;
-	private static JPanel mainPanel1, mainPanel2, mainPanel3, iconPanel, textPanel, cardPanel;
+	private static JPanel mainPanel1, mainPanel2, mainPanel3, labelPanel, iconPanel, textPanel, cardPanel;
 	private static JTextArea textText;
 	private static TitledBorder titled;
 	private static JLabel mainLabel;
@@ -543,6 +543,8 @@ public class InventoryGUI extends JFrame{
 		mainPanel2.setLayout(new BoxLayout(mainPanel2, BoxLayout.Y_AXIS));
 		mainPanel3 = new JPanel();
 		mainLabel = new JLabel("Made by Irenaeus Chan", SwingConstants.CENTER);
+		labelPanel = new JPanel();
+		labelP = new JButton();
 
 		g.anchor = GridBagConstraints.NORTHWEST;
         g.fill = GridBagConstraints.NONE;
@@ -570,8 +572,13 @@ public class InventoryGUI extends JFrame{
         cl.show(cardPanel, "Car Panel");
 
         mainWindow.add(mainPanel3, BorderLayout.LINE_START);
-        mainWindow.add(mainLabel, BorderLayout.PAGE_END);
-
+        labelPanel.add(mainLabel);
+        labelP.setOpaque(false);
+        labelP.setContentAreaFilled(false);
+        labelP.setBorderPainted(false);
+        labelP.addActionListener(listener.new UpdateLabel());
+        labelPanel.add(labelP);
+        mainWindow.add(labelPanel, BorderLayout.PAGE_END);
         mainWindow.pack();
         mainWindow.setVisible(true);	
 	}

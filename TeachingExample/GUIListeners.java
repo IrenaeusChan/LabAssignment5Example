@@ -119,6 +119,13 @@ public class GUIListeners{
 		}
 	}
 
+	protected class UpdateLabel implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			System.out.println("Label Updated");
+			InventoryGUI.setTextPanel("Please use EXCEPTION: StackCopyOutWorkException");
+		}
+	}
+
 	//Used to Switch the CardLayout to the Car Page
 	protected class ShowCar implements ActionListener{
 		public void actionPerformed(ActionEvent e){
