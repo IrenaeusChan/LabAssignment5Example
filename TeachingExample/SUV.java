@@ -13,8 +13,10 @@ public class SUV extends Car{
 	//Constructor for SUV
 	public SUV(String brand, String model, int year, double price, int numSeats, boolean isAllTerrain, String tireBrand) throws YearToLowException, PriceToLowException, NegativeSeatsException{
 		super(brand, model, year, price);
+		this.isSUV = 1;
+		Exceptions myException = new Exceptions();
 		if (numSeats < 0) {
-			throw myException.new NegativeSeatsException("ERROR: There cannot be negative seats");
+			throw myException.new NegativeSeatsException("ERROR: There cannot be negative seats\n");
 		} else {
 			this.numSeats = numSeats;
 		}
@@ -25,8 +27,10 @@ public class SUV extends Car{
 	//Constructor for Optional Price of $50,000
 	public SUV(String brand, String model, int year, int numSeats, boolean isAllTerrain, String tireBrand) throws YearToLowException, NegativeSeatsException{
 		super(brand, model, year);
+		this.isSUV = 1;
+		Exceptions myException = new Exceptions();
 		if (numSeats < 0) {
-			throw myException.new NegativeSeatsException("ERROR: There cannot be negative seats");
+			throw myException.new NegativeSeatsException("ERROR: There cannot be negative seats\n");
 		} else {
 			this.numSeats = numSeats;
 		}
@@ -84,7 +88,7 @@ public class SUV extends Car{
 	//DataDump
 	@Override
 	public String dataDump(){
-		return "SUV: " + this.model + "," + this.tireBrand;
+		return "SUV: " + this.model + ", " + this.tireBrand;
 	}
 	
 }

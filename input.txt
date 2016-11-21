@@ -1,0 +1,10 @@
+Honda Civic 1986 36000 0
+Too Old 1940 10000 0
+Porsche Cayman 2016 78000 0
+Too Cheap 1999 4000 1 4 true Briddestone
+Repeat Car 2001 20000 0
+Volvo V70 2002 4500 0
+Ford Expedition 2009 38000 1 6 true Firestone
+Chevy Tahoe 2011 41000 1 5 false Michelin
+Repeat Car 2001 20000 0
+Toyota Camry 2005 8000 0

@@ -36,4 +36,26 @@ public class Exceptions {
 			super(s);
 		}
 	}
+
+	protected class SingleWordException extends Exception{
+		//Main Exception Throw
+		protected SingleWordException(){
+			super();
+		}
+		//String Exception Throw
+		protected SingleWordException(String s){
+			super(s);
+		}
+	}
+
+	protected class RepeatKeyException extends Exception{
+		//Main Exception Throw
+		protected RepeatKeyException(){
+			super();
+		}
+		//String Exception Throw
+		protected RepeatKeyException(String s){
+			super(s);
+		}
+	}
 }

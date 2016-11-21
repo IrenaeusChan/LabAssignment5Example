@@ -8,23 +8,22 @@ public class Car{
 	//Initialized Attributes
 	String brand;
 	String model;
-	int year;
+	int year, isSUV;
 	double price;
-
-	//This is bad... I only did it because i'm lazy
-	Exceptions myException = new Exceptions();
 
 	//Constructor for General Car
 	public Car(String brand, String model, int year, double price) throws YearToLowException, PriceToLowException{
+		Exceptions myException = new Exceptions();
+		this.isSUV = 0;
 		this.brand = brand;
 		this.model = model;
 		if (year < 1986 || year > 9999) {
-			throw myException.new YearToLowException("ERROR: Year must be greater than 1986");
+			throw myException.new YearToLowException("ERROR: Year must be greater than 1986\n");
 		} else {
 			this.year = year;
 		}
 		if (price < 5000) {
-			throw myException.new PriceToLowException("ERROR: Price must be greater than $5,000");
+			throw myException.new PriceToLowException("ERROR: Price must be greater than $5,000\n");
 		} else {
 			this.price = price;
 		}
@@ -32,10 +31,12 @@ public class Car{
 
 	//Constructor for Optional Price of $50,000
 	public Car(String brand, String model, int year) throws YearToLowException{
+		Exceptions myException = new Exceptions();
+		this.isSUV = 0;
 		this.brand = brand;
 		this.model = model;
 		if (year < 1986 || year > 9999) {
-			throw myException.new YearToLowException("ERROR: Year must be greater than 1986");
+			throw myException.new YearToLowException("ERROR: Year must be greater than 1986\n");
 		} else {
 			this.year = year;
 		}
@@ -69,14 +70,16 @@ public class Car{
 	}
 
 	public void setYear(int year) throws YearToLowException{
+		Exceptions myException = new Exceptions();
 		if (year < 1986 || year > 9999) {
-			throw myException.new YearToLowException("ERROR: Year must be greater than 1986");
+			throw myException.new YearToLowException("ERROR: Year must be greater than 1986 and less than 9999");
 		} else {
 			this.year = year;
 		}
 	}
 
 	public void setPrice(int price) throws PriceToLowException{
+		Exceptions myException = new Exceptions();
 		if (price < 5000) {
 			throw myException.new PriceToLowException("ERROR: Price must be greater than $5,000");
 		} else {
@@ -87,7 +90,7 @@ public class Car{
 	//ToString
 	@Override
 	public String toString(){
-		return this.brand + " " + this.model + " " + this.year + " " + this.price;
+		return this.brand + " " + this.model + " " + this.year + " " + this.price + " " + this.isSUV;
 	}	
 
 	//Equals Method
