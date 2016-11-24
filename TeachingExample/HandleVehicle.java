@@ -4,9 +4,11 @@ import java.io.*;
 import java.util.*;
 import javax.swing.*;
 import java.lang.Math;
-import TeachingExample.Exceptions.*;
+import TeachingExample.Exceptions.*;	//Be sure to import the Exceptions class like you would any other library
 
 public class HandleVehicle{
+
+	//The inventory HashMap that we will be using to store all our cars
 	private static HashMap<String, Car> inventory = new HashMap<String, Car>();
 
 	/**
@@ -16,7 +18,7 @@ public class HandleVehicle{
 	* create the Car Object and then return it to whoever needs it. Or else, NULL
 	**/
 	protected static Car checkCarValues(String cbrandField, String cmodelField, String cyearField, String ccostField){
-		Exceptions myException = new Exceptions();
+		Exceptions myException = new Exceptions();	//Instanstiation of the Exceptions class
 		String[] brand, model;
 		int year;
 		double cost;
@@ -24,20 +26,30 @@ public class HandleVehicle{
 		try{
 			brand = cbrandField.split("\\s+");
 			if (brand.length > 1 || brand[0].equals("")){	//Check if the word is less than one or empty
+				//After instantiating the Exceptions class, I am able to create instances of the inner class found
+				// inside the Exceptions class, in this example, I am throwing the inner class SingleWordException
 				throw myException.new SingleWordException("ERROR: Please Enter a Single Word for your Brand\n");
 			}
 			model = cmodelField.split("\\s+");
 			if (model.length > 1 || model[0].equals("")){	//Check if the word is less than one or empty
+				//Due to the beauty of inner classes, I can create any inner class I want as long as I have the
+				// initial Exceptions class instantiated. Here I am throwing another SingleWordException
 				throw myException.new SingleWordException("ERROR: Please Enter a Single Word for your Model\n");
 			}
 			year = Integer.parseInt(cyearField.toLowerCase());
 			if (ccostField.toLowerCase().equals("")){		//Looks for the Default Price Possibility
+				//If it is default price, use the Default Price Constructor, note: If the constructor detects any errors
+				// it will throw the exceptions YearToLowException and the PriceToLowException, which we catch later
 				userCar = new Car(brand[0].toLowerCase(), model[0].toLowerCase(), year);
 			} else {
+				//If it isn't using default price, then we parse the costField input and then use the normal constructor
 				cost = Double.parseDouble(ccostField.toLowerCase());
 				userCar = new Car(brand[0].toLowerCase(), model[0].toLowerCase(), year, cost);
 			}
 			return userCar;
+		//Not only do we have to catch the NumberFormatException that can result from the Integer.parseInt() function
+		// we need to also check the other two Exceptions that could be thrown by our constructor as well as the SingleWordException
+		// that we have thrown here
 		} catch (NumberFormatException nfe){
 			InventoryGUI.appendToTextPanel("ERROR: Please double check your entry for proper input.\n");
 		} catch (YearToLowException ytle){
@@ -47,6 +59,7 @@ public class HandleVehicle{
 		} catch (SingleWordException swe){
 			InventoryGUI.appendToTextPanel(swe.getMessage());
 		}
+		//If we cannot successfully create the Car Object, then we just return NULL and let the receiving side deal with the problem
 		return null;
 	}
 
@@ -91,6 +104,7 @@ public class HandleVehicle{
 			}
 			return userSUV;
 		} catch (NumberFormatException nfe){
+			//Here I am using the static appendToTextPanel() method found in the InventoryGUI class to work with my GUI
 			InventoryGUI.appendToTextPanel("ERROR: Please double check your entry for proper input.\n");
 		} catch (YearToLowException ytle){
 			InventoryGUI.appendToTextPanel(ytle.getMessage());
@@ -107,11 +121,15 @@ public class HandleVehicle{
 	/**
 	* A method that will take any valid car that has been already checked by the checkCarValues method
 	* and will add that care to the HashMap only if another car with the same attributes does not exist
+	* This method will usually be called once our checkCarValues method has verified that the information being
+	* parsed into the program is valid and meets all our requirements. If it doesn't meet our requirements
+	* we simply tell the User that the Car was not entered.
 	**/
 	protected static void addCar(Car userCar){
 		Exceptions myException = new Exceptions();
 		String key;
 		if (userCar == null){
+			//Here I am using the static appendToTextPanel() method found in the InventoryGUI class to work with my GUI
 			InventoryGUI.appendToTextPanel("Car was NOT entered.\n");
 		} else {
 			try{
@@ -131,6 +149,9 @@ public class HandleVehicle{
 	/**
 	* A method that will take any valid car that has been already checked by the checkSUVValues method
 	* and will add that care to the HashMap only if another SUV with the same attributes does not exist
+	* This method will usually be called once our checkSUVValues method has verified that the information being
+	* parsed into the program is valid and meets all our requirements. If it doesn't meet our requirements
+	* we simply tell the User that the SUV was not entered.
 	**/
 	protected static void addSUV(SUV userSUV){
 		Exceptions myException = new Exceptions();
@@ -179,15 +200,16 @@ public class HandleVehicle{
 		}
 	}
 
+	//We will be utilizing the JFileChooser class here in order to utilize its OpenDialog function that will give us better
+	// control over what the user is selecting to open
 	protected static void readFile(){
-		JFileChooser fc = new JFileChooser();
+		JFileChooser fc = new JFileChooser();				//Instantiate a new instance of the JFileChooser class
 		String[] fileValues;
 		//Make sure we look in the current Directory
 		File workingDirectory = new File(System.getProperty("user.dir"));
 		fc.setCurrentDirectory(workingDirectory);
-		//fc is the fileChooser that will use the "Open Dialog" function in the JFileChooser
-		int returnVal = fc.showOpenDialog(null);
-		if(returnVal == JFileChooser.APPROVE_OPTION){		//If their selection was Open
+		int returnVal = fc.showOpenDialog(null);			//fc is the fileChooser that will use the "Open Dialog" function in the JFileChooser
+		if(returnVal == JFileChooser.APPROVE_OPTION){		//If their selection was Open and not Cancel
 			File f = fc.getSelectedFile();					//Obtain the actual file that was desired to be opened
 			try{
 				//Reading the File
@@ -212,11 +234,12 @@ public class HandleVehicle{
 		}
 	}
 
+	//Generic DataDump but rather than dumping to our TextArea, we will open a file and print it there
 	protected static void dataDumpToFile(){
 		try{
 			PrintWriter output = new PrintWriter(new File("output.txt"));	//Open a PrintWriter to write to
-			for (Car value : inventory.values()){		//For every value inside our HashMap
-				output.write(value.dataDump() + "\n");	//Write it
+			for (Car value : inventory.values()){							//For every value inside our HashMap
+				output.write(value.dataDump() + "\n");						//Write it
 			}
 			output.close();
 			InventoryGUI.setTextPanel("UPDATE: Your Inventory has SUCCESSFULLY been dumped to a file.\n");
