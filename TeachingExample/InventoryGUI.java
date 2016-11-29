@@ -219,7 +219,7 @@ public class InventoryGUI extends JFrame{
 	* The output screen for where the information will be displayed
 	* This text screen allows scrolling on both sides in case information is too large
 	**/
-	private static void textScreen(){
+	private void textScreen(){
 		textPanel = new JPanel();
 		textText = new JTextArea(15, 50);
 		titled = new TitledBorder("Direct Output");
@@ -568,8 +568,13 @@ public class InventoryGUI extends JFrame{
         mainWindow.setResizable(false);
         mainWindow.setJMenuBar(menuBar);
 
+        //To show CardLayout, we have to create a new CardLayout Manager
         CardLayout cl = (CardLayout)(cardPanel.getLayout());
+        //Once we have the CardLayout Manager, we will then show the panel
+        // that we want to show, in this example, we want to show the
+        // "Car Panel" that is inside the cardPanel
         cl.show(cardPanel, "Car Panel");
+        //Action listeners would implement a similar thing
 
         mainWindow.add(mainPanel3, BorderLayout.LINE_START);
         labelPanel.add(mainLabel);
