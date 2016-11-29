@@ -1,6 +1,6 @@
 package TeachingExample;
 
-import TeachingExample.Exceptions.*;
+import TeachingExample.Exceptions.*;	//Be sure to import the Exceptions class like you would any other library
 
 //Car Super Class
 public class Car{
@@ -13,16 +13,20 @@ public class Car{
 
 	//Constructor for General Car
 	public Car(String brand, String model, int year, double price) throws YearToLowException, PriceToLowException{
-		Exceptions myException = new Exceptions();
+		Exceptions myException = new Exceptions();	//Instanstiation of the Exceptions class
 		this.isSUV = 0;
 		this.brand = brand;
 		this.model = model;
 		if (year < 1986 || year > 9999) {
+			//After instantiating the Exceptions class, I am able to create instances of the inner class found
+			// inside the Exceptions class, in this example, I am throwing the inner class YearToLowException
 			throw myException.new YearToLowException("ERROR: Year must be greater than 1986\n");
 		} else {
 			this.year = year;
 		}
 		if (price < 5000) {
+			//Due to the beauty of inner classes, I can create any inner class I want as long as I have the
+			// initial Exceptions class instantiated. Here I am throwing another inner class called PriceToLowException
 			throw myException.new PriceToLowException("ERROR: Price must be greater than $5,000\n");
 		} else {
 			this.price = price;
@@ -31,6 +35,7 @@ public class Car{
 
 	//Constructor for Optional Price of $50,000
 	public Car(String brand, String model, int year) throws YearToLowException{
+		//You must instantiate this class if you are going to throw your own exception
 		Exceptions myException = new Exceptions();
 		this.isSUV = 0;
 		this.brand = brand;

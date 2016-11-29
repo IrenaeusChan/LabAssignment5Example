@@ -1,6 +1,6 @@
 package TeachingExample;
 
-import TeachingExample.Exceptions.*;
+import TeachingExample.Exceptions.*;	//Be sure to import the Exceptions class like you would any other library
 
 //SUV Subclass
 public class SUV extends Car{
@@ -11,11 +11,14 @@ public class SUV extends Car{
 	String tireBrand;
 
 	//Constructor for SUV
+	//Even though this constructor only throws NegativeSeatsException, it is a subclass of the Car class which throws the other two exceptions, hence why we need to include them here
 	public SUV(String brand, String model, int year, double price, int numSeats, boolean isAllTerrain, String tireBrand) throws YearToLowException, PriceToLowException, NegativeSeatsException{
 		super(brand, model, year, price);
 		this.isSUV = 1;
-		Exceptions myException = new Exceptions();
+		Exceptions myException = new Exceptions();	//Instanstiation of the Exceptions class
 		if (numSeats < 0) {
+			//After instantiating the Exceptions class, I am able to create instances of the inner class found
+			// inside the Exceptions class, in this example, I am throwing the inner class NegativeSeatsException
 			throw myException.new NegativeSeatsException("ERROR: There cannot be negative seats\n");
 		} else {
 			this.numSeats = numSeats;
