@@ -627,17 +627,7 @@ public class InventoryGUI extends JFrame{
         mainWindow.setResizable(false);							//I don't want user to be able to resize to prevent awkward
         mainWindow.setJMenuBar(menuBar);						// component spacing
 
-<<<<<<< HEAD
-        //To show CardLayout, we have to create a new CardLayout Manager
-        CardLayout cl = (CardLayout)(cardPanel.getLayout());
-        //Once we have the CardLayout Manager, we will then show the panel
-        // that we want to show, in this example, we want to show the
-        // "Car Panel" that is inside the cardPanel
-        cl.show(cardPanel, "Car Panel");
-        //Action listeners would implement a similar thing
-=======
         showCard("Car Panel");									//Calls on the showCard() method to show the Car Panel initially
->>>>>>> 996bfb32091986dba7642c3cd364d5a13ad378b5
 
         mainWindow.add(mainPanel3, BorderLayout.LINE_START);	//Add all of the components to the entire JFrame
         labelPanel.add(mainLabel);
